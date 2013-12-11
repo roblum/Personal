@@ -1,4 +1,3 @@
-<script>
 jQuery(function($){
 //Placeholders for Submit Form
 $("#firstname").attr('placeholder', 'First name*');
@@ -32,4 +31,3 @@ $('[placeholder]').focus(function() {
   }
 }).blur();
 });
-</script>
