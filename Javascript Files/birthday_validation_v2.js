@@ -79,3 +79,25 @@ jQuery(function($){
 	});
 
 });
+
+//Number Only Age validation
+<script>
+jQuery(function($){
+	var birthdayField = '#surname';
+
+	$(birthdayField).attr('maxlength','3');
+
+	$(birthdayField).bind('keyup', function(){
+  		this.value = this.value.replace(/[^0-9]/g,'');
+	});
+
+	$(birthdayField).change(function(){
+		var userAge = parseInt($(this).val().trim());
+			if ( userAge < 18 ){
+				$( '#form_submit_button, #form-submit-button' ).attr( 'disabled' , 'disabled' );
+			} else{
+				$( '#form_submit_button, #form-submit-button' ).removeAttr( 'disabled' );
+			}
+	});
+});
+</script>
