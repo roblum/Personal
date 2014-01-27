@@ -9,16 +9,19 @@ jQuery(function($){
 		,zip = $('#zip')
 		,birthday = $('#post'); //NOT USING STANDARD BIRTHDAY FIELD
 
+	//Fix Date.now on IE8
+	Date.now = Date.now || function() { return +new Date; };
+
 	//Disable Auto-Complete on form
 	$('#frmSignUp input').attr('autocomplete','off');
 
-	var disableSubmit = function(){
-		$('#form_submit_button, #form-submit-button').attr('disabled','disabled');
-	}
+			var disableSubmit = function(){
+				$('#form_submit_button, #form-submit-button').attr('disabled','disabled');
+			}
 
-	var enableSubmit = function(){
-		$('#form_submit_button, #form-submit-button').removeAttr('disabled');
-	}
+			var enableSubmit = function(){
+				$('#form_submit_button, #form-submit-button').removeAttr('disabled');
+			}
 
 	//Disable Submit Button on Page Load
 	disableSubmit();
@@ -27,35 +30,35 @@ jQuery(function($){
 	$(birthday).attr('placeholder','MM/DD/YYYY');
 	$(birthday).mask('99/99/9999');
 
-	//Checks if current field highlighted is empty
-	var checkEmpty = function(field){
-		if (!field.value){
-			$(field).addClass('Invalid');
-  		} else{
-  			$(field).removeClass('Invalid');
-		}
-	}
+			//Checks if current field highlighted is empty
+			var checkEmpty = function(field){
+				if (!field.value){
+					$(field).addClass('Invalid');
+		  		} else{
+		  			$(field).removeClass('Invalid');
+				}
+			}
 
-	//Test all fields to enable Submit Button
-	var testSubmit = function(){
-		var invalidCount = $('.Invalid').length;
-		if (!firstname.val() || !lastname.val() || !email.val() || !address.val() || !state.val() || !city.val() || !zip.val() || !birthday.val()){
-			disableSubmit();
-			return false;
-		}
-		if (invalidCount < 1){
-			enableSubmit();
-		} else{
-			disableSubmit();
-		}
-	}
+					//Test all fields to enable Submit Button
+					var testSubmit = function(){
+						var invalidCount = $('.Invalid').length;
+						if (!firstname.val() || !lastname.val() || !email.val() || !address.val() || !state.val() || !city.val() || !zip.val() || !birthday.val()){
+							disableSubmit();
+							return false;
+						}
+						if (invalidCount < 1){
+							enableSubmit();
+						} else{
+							disableSubmit();
+						}
+					}
 
-	//First Name, Last Name, State, and City must not have digits
-	$(firstname).add(lastname).add(state).add(city).bind('keyup', function(){
-  		this.value = this.value.replace(/\d|[\.,<>-?\/#!@$%\^&\*;:{}=+\-_`'"~()\\\[\]\|]/g,'');
-  		checkEmpty(this);
-  		testSubmit();
-	});
+			//First Name, Last Name, State, and City must not have digits
+			$(firstname).add(lastname).add(state).add(city).bind('keyup', function(){
+		  		this.value = this.value.replace(/\d|[\.,<>-?\/#!@$%\^&\*;:{}=+\-_`'"~()\\\[\]\|]/g,'');
+		  		checkEmpty(this);
+		  		testSubmit();
+			});
 
 	//Email must match correct format
 	$(email).bind('keyup',function(){
@@ -68,11 +71,16 @@ jQuery(function($){
 		testSubmit();
 	});
 
-	//Zip Code must be numbers
-	$(zip).bind('keyup', function(){
-  		this.value = this.value.replace(/[^0-9]/g,'');
-  		checkEmpty(this);
-  		testSubmit();
+			//Zip Code must be numbers
+			$(zip).bind('keyup', function(){
+		  		this.value = this.value.replace(/[^0-9]/g,'');
+		  		checkEmpty(this);
+		  		testSubmit();
+			});
+
+	//Address must start out with digits, then one space
+	$(address).bind('keyup',function(){
+		console.log(this);
 	});
 
 	//Birthday must be 18 or older
@@ -98,5 +106,10 @@ jQuery(function($){
 		testSubmit();
 	});
 
+
+		$('#frmSignUp').unbind('submit').submit(function(event) {
+
+
+		});
 
 });
