@@ -34,7 +34,7 @@ $('#share_twitter a').attr('href','http://twitter.com/share?text=I%20could%20win
 jQuery(function($){
 //Change Email Share Copy
 if ($('#share_email').length > 0 ){
-var bitLy = $('#share_url').attr('value').slice(14,20);
+var bitLy = $('#share_url').attr('value').slice(14,21);
 $('#share_email a').attr('href', 'mailto:?body=Paste%20Copy%20Here%20http%3A//bit.ly/' + bitLy + '&subject=Paste%20Subject%20Here');
 }
 });
