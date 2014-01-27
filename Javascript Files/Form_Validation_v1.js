@@ -7,14 +7,25 @@ jQuery(function($){
 		,state = $('#state')
 		,city = $('#city')
 		,zip = $('#zip')
-		,dSubmitButton = $('#form_submit_button')
-		,mSubmitButton = $('#form-submit-button');
+		,birthday = $('#post'); //NOT USING STANDARD BIRTHDAY FIELD
+
+	//Disable Auto-Complete on form
+	$('#frmSignUp input').attr('autocomplete','off');
+
+	var disableSubmit = function(){
+		$('#form_submit_button, #form-submit-button').attr('disabled','disabled');
+	}
+
+	var enableSubmit = function(){
+		$('#form_submit_button, #form-submit-button').removeAttr('disabled');
+	}
 
 	//Disable Submit Button on Page Load
-	$(dSubmitButton).add(mSubmitButton).attr('disabled','disabled');
+	disableSubmit();
 
 	//Mask Birthday field (Using Post)
-	$('#post').mask('99/99/9999');
+	$(birthday).attr('placeholder','MM/DD/YYYY');
+	$(birthday).mask('99/99/9999');
 
 	//Checks if current field highlighted is empty
 	var checkEmpty = function(field){
@@ -26,16 +37,16 @@ jQuery(function($){
 	}
 
 	//Test all fields to enable Submit Button
-	var enableSubmit = function(){
+	var testSubmit = function(){
 		var invalidCount = $('.Invalid').length;
-		if (!firstname.val() || !lastname.val() || !email.val() || !address.val() || !state.val() || !city.val() || !zip.val()){
-			$(dSubmitButton).add(mSubmitButton).attr('disabled','disabled');
+		if (!firstname.val() || !lastname.val() || !email.val() || !address.val() || !state.val() || !city.val() || !zip.val() || !birthday.val()){
+			disableSubmit();
 			return false;
 		}
 		if (invalidCount < 1){
-			$(dSubmitButton).add(mSubmitButton).removeAttr('disabled');
+			enableSubmit();
 		} else{
-			$(dSubmitButton).add(mSubmitButton).attr('disabled','disabled');
+			disableSubmit();
 		}
 	}
 
@@ -43,7 +54,7 @@ jQuery(function($){
 	$(firstname).add(lastname).add(state).add(city).bind('keyup', function(){
   		this.value = this.value.replace(/\d|[\.,<>-?\/#!@$%\^&\*;:{}=+\-_`'"~()\\\[\]\|]/g,'');
   		checkEmpty(this);
-  		enableSubmit();
+  		testSubmit();
 	});
 
 	//Email must match correct format
@@ -54,14 +65,37 @@ jQuery(function($){
 		} else{
 			$(email).removeClass('Invalid');
 		}
-		enableSubmit();
+		testSubmit();
 	});
 
 	//Zip Code must be numbers
 	$(zip).bind('keyup', function(){
   		this.value = this.value.replace(/[^0-9]/g,'');
   		checkEmpty(this);
-  		enableSubmit();
+  		testSubmit();
+	});
+
+	//Birthday must be 18 or older
+	$(birthday).bind('keyup',function(){
+		var birthdayValue = $(birthday).val().replace(/\D/g,'')
+			,bmonth = birthdayValue.slice(0,2)
+	        ,bdate = birthdayValue.slice(2,4)
+	        ,byear = birthdayValue.slice(4,8)
+	        ,convertDate = new Date(byear, bmonth, bdate)
+        	,compareDate = convertDate.getTime()
+			,dayInMilliseconds = 1000 * 60 * 60 * 24;
+			console.log('desktop' + bmonth + '' + bdate + '' + byear);
+		    
+		checkEmpty(this);
+
+		if(!birthdayValue || Date.now() - compareDate < dayInMilliseconds * 365.25 * 18 + dayInMilliseconds || birthdayValue.length !== 8) {
+			console.log('invalid birthday');
+		    $(birthday).addClass('Invalid');
+		} else{
+			console.log('valid birthday');
+		    $(birthday).removeClass('Invalid');
+		}
+		testSubmit();
 	});
 
 
