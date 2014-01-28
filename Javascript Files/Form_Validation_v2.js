@@ -45,6 +45,7 @@ jQuery(function($){
 					var testSubmit = function(){
 						var invalidCount = $('.Invalid').length
 							,num = 0,cnum = 0;
+						//Store amount of variables in "v" object
 						for (s in v){++num;++cnum;}
 						for (e in v){
 							if (!v[e].val()){
@@ -52,10 +53,12 @@ jQuery(function($){
 								--num
 							}
 						}
+						//If any are empty, disable submit and exit function
 						if (num !== cnum){
 							disableSubmit();
 							return false;
 						}
+						//Disable submit if any invalid fields
 						if (invalidCount < 1){
 							enableSubmit();
 						} else{
