@@ -93,38 +93,44 @@ jQuery(function($){
 
 	//Address must start out with digits, then one space
 	$(v.address).bind('keyup',function(){
-		console.log(this);
+		checkEmpty(this);
 	});
+
+			//Birthday Validation Function
+			var birthdayValidation = function(elem){
+				var birthdayValue = $(v.birthday).val().replace(/\D/g,'')
+					,bmonth = birthdayValue.slice(0,2)
+			        ,bdate = birthdayValue.slice(2,4)
+			        ,byear = birthdayValue.slice(4,8)
+			        ,convertDate = new Date(byear, bmonth, bdate)
+		        	,compareDate = convertDate.getTime()
+					,dayInMilliseconds = 1000 * 60 * 60 * 24;
+					console.log('desktop' + bmonth + '' + bdate + '' + byear);
+				    
+				checkEmpty(elem);
+
+				if(!birthdayValue || Date.now() - compareDate < dayInMilliseconds * 365.25 * 18 + dayInMilliseconds || birthdayValue.length !== 8) {
+					console.log('invalid birthday');
+				    $(v.birthday).addClass('Invalid');
+				} else{
+					console.log('valid birthday');
+				    $(v.birthday).removeClass('Invalid');
+				}
+				testSubmit();
+			}
 
 	//Birthday must be 18 or older
 	$(v.birthday).bind('keyup',function(){
-		var birthdayValue = $(v.birthday).val().replace(/\D/g,'')
-			,bmonth = birthdayValue.slice(0,2)
-	        ,bdate = birthdayValue.slice(2,4)
-	        ,byear = birthdayValue.slice(4,8)
-	        ,convertDate = new Date(byear, bmonth, bdate)
-        	,compareDate = convertDate.getTime()
-			,dayInMilliseconds = 1000 * 60 * 60 * 24;
-			console.log('desktop' + bmonth + '' + bdate + '' + byear);
-		    
-		checkEmpty(this);
-
-		if(!birthdayValue || Date.now() - compareDate < dayInMilliseconds * 365.25 * 18 + dayInMilliseconds || birthdayValue.length !== 8) {
-			console.log('invalid birthday');
-		    $(v.birthday).addClass('Invalid');
-		} else{
-			console.log('valid birthday');
-		    $(v.birthday).removeClass('Invalid');
-		}
-		testSubmit();
+		var that = this;
+		birthdayValidation(that);
 	});
 
 		var validateAgain = function(){
 			
 		}
 
-		$('#frmSignUp').unbind('submit').submit(function(event) {
-				validateAgain();
+		$('#frmSignUp').unbind('submit').submit(function(event){
+				birthdayValidation()
 		});
 
 });
