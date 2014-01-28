@@ -42,7 +42,15 @@ jQuery(function($){
 					//Test all fields to enable Submit Button
 					var testSubmit = function(){
 						var invalidCount = $('.Invalid').length;
-						if (!firstname.val() || !lastname.val() || !email.val() || !address.val() || !state.val() || !city.val() || !zip.val() || !birthday.val()){
+						if (!firstname.val() || 
+							!lastname.val() || 
+							!email.val() || 
+							!address.val() || 
+							!state.val() || 
+							!city.val() || 
+							!zip.val() 
+							|| !birthday.val()
+							){
 							disableSubmit();
 							return false;
 						}
@@ -106,10 +114,12 @@ jQuery(function($){
 		testSubmit();
 	});
 
+		var validateAgain = function(){
+			
+		}
 
 		$('#frmSignUp').unbind('submit').submit(function(event) {
-
-
+				validateAgain();
 		});
 
 });
