@@ -1,5 +1,5 @@
 jQuery(function($){
-	//Form Validation 01_27_14
+	//Form Validation 01_29_14
 	var v = {
 		firstname: 	$('#firstname')
 		,lastname: 	$('#lastname')
@@ -33,7 +33,7 @@ jQuery(function($){
 	Date.now = Date.now || function() { return +new Date; };
 
 	//Disable Auto-Complete on form
-	$('#frmSignUp input').attr('autocomplete','off');
+	//$('#frmSignUp input').attr('autocomplete','off');
 
 	//Mask Birthday field (Using Post)
 	$(v.birthday).attr('placeholder','MM/DD/YYYY');
@@ -41,10 +41,12 @@ jQuery(function($){
 
 			//Enable submit button if parameter === 'enable', else disable submit button
 			var disableEnable = function(condition){
+				console.log(condition)
 				if (condition === 'enable'){
 					//Enable submit button
 					$('#form_submit_button, #form-submit-button').removeAttr('disabled');
 				} else {
+					console.log('disableEnable returned false')
 					$('#form_submit_button, #form-submit-button').attr('disabled','disabled');
 				}
 			}
@@ -71,19 +73,23 @@ jQuery(function($){
 							if (!v[e].val()){
 								console.log(v[e].val())
 								console.log(e + 'is empty' + 'num' + num);
-								--num
+								--num;
 							}
 						}
 						//If any are empty, disable submit and exit function
 						if (num !== cnum){
+							console.log('ran empty false')
 							disableEnable(false);
 							return false;
 						}
 						//checkOptin();
 						//Disable submit if any invalid fields
+						console.log('num:' + num + 'cnum:' + cnum + 'invalidCount:' + invalidCount)
 						if (invalidCount < 1){
 							disableEnable('enable');
+							return true;
 						} else{
+							console.log(invalidCount + 'disabling submit button more than 1')
 							disableEnable(false);
 							return false;
 						}
@@ -92,34 +98,36 @@ jQuery(function($){
 //Validate Fields Functions
 //=====================================================
 
-	/*var validateAlphaFields = function(field){
+	var validateAlphaFields = function(field){
+		console.log(field)
 		var currentValue = $(v[field]).val();
+		console.log(currentValue);
 		if (!currentValue || !currentValue.match(/^[A-z]+$/)){
 			$(v[field]).addClass('Invalid');
 		} else{
 			$(v[field]).removeClass('Invalid');
 		}
-		testSubmit();
+		return testSubmit();
 	}
 
 
 			var firstnameFunction = function(){
 				var inputField = 'firstname';
-				validateAlphaFields(inputField);
+				return validateAlphaFields(inputField);
 			}
 			var lastnameFunction = function(){
 				var inputField = 'lastname';
-				validateAlphaFields(inputField);
+				return validateAlphaFields(inputField);
 			}
 			var stateFunction = function(){
 				var inputField = 'state';
-				validateAlphaFields(inputField);
+				return validateAlphaFields(inputField);
 			}
 			var cityFunction = function(){
 				var inputField = 'city';
-				validateAlphaFields(inputField);
+				return validateAlphaFields(inputField);
 			}
-			*/
+		
 
 			var emailFunction = function(){
 				var emailVal = v.email.val();
@@ -128,7 +136,10 @@ jQuery(function($){
 				} else{
 					$(v.email).removeClass('Invalid');
 				}
-				testSubmit();
+				return testSubmit();
+			}
+			var addressFunction = function(){
+				return testSubmit();
 			}
 
 						//Birthday Validation Function
@@ -151,7 +162,17 @@ jQuery(function($){
 					console.log('valid birthday');
 				    $(v.birthday).removeClass('Invalid');
 				}
-				testSubmit();
+				return testSubmit();
+			}
+
+			var zipFunction = function(){
+				var zipVal = v.zip.val();
+				if(!zipVal || !zipVal.match(/^[0-9]+$/)){
+					$(v.zip).addClass('Invalid');
+				} else{
+					$(v.zip).removeClass('Invalid');
+				}
+				return testSubmit();
 			}
 
 //EVENT HANDLERS
@@ -193,12 +214,22 @@ jQuery(function($){
 								testSubmit()
 							});
 
-/*
+
 		$('#frmSignUp').unbind('submit').submit(function(event){
+				event.preventDefault();
+				console.log('form submission');
+				var failures = 0;
 				for (x in v){
-					eval(x + 'Function()')
+					if (!eval(x + 'Function()')){
+						failures++;
+						console.log(failures)
+					}
+				}
+
+				if (!failures) {
+					$('#frmSignUp').submit();
 				}
 		});
-		*/
+	
 
 });
