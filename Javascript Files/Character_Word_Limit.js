@@ -2,7 +2,7 @@
 jQuery(function($){
     $('<p id="numCount"></p>').appendTo('#sfield_entry');
     $('textarea').keypress(function(e) {
-        if(event.which == '13') {
+        if(e.which == '13') {
         return false;
     } else{
         var tval = $('textarea').val()
