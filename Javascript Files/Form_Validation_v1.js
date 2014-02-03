@@ -10,9 +10,18 @@ jQuery(function($){
 		,zip: 		$('#zip')
 		,birthday: 	$('#post') //NOT USING STANDARD BIRTHDAY FIELD
 	}
+	//Fix Date.now on IE8
+	Date.now = Date.now || function() { return +new Date; };
+	
+	//Disable Auto-Complete on form
+	//$('#frmSignUp input').attr('autocomplete','off');
+
+	//Mask Birthday field (Using Post)
+	$(v.birthday).attr('placeholder','MM/DD/YYYY');
+	$(v.birthday).mask('99/99/9999');
 
 	//Check Required Optins	
-	/*var checkOptin = function(){
+	var checkOptin = function(){
 		if ($('.SDeclare:not(:has(>span))').length > 0){
 				var optinNumber = [];
 				$('.SDeclare:not(:has(>span))').each(function(){
@@ -27,17 +36,6 @@ jQuery(function($){
 					}
 		}
 	}
-	*/
-
-	//Fix Date.now on IE8
-	Date.now = Date.now || function() { return +new Date; };
-
-	//Disable Auto-Complete on form
-	//$('#frmSignUp input').attr('autocomplete','off');
-
-	//Mask Birthday field (Using Post)
-	$(v.birthday).attr('placeholder','MM/DD/YYYY');
-	$(v.birthday).mask('99/99/9999');
 
 			//Enable submit button if parameter === 'enable', else disable submit button
 			var disableEnable = function(condition){
@@ -98,51 +96,59 @@ jQuery(function($){
 //Validate Fields Functions
 //=====================================================
 
+	//Validate Alpha
 	var validateAlphaFields = function(field){
 		console.log(field)
 		var currentValue = $(v[field]).val();
 		console.log(currentValue);
-		if (!currentValue || !currentValue.match(/^[A-z]+$/)){
-			$(v[field]).addClass('Invalid');
-		} else{
-			$(v[field]).removeClass('Invalid');
-		}
+			if (!currentValue || !currentValue.match(/^[A-z]+$/)){
+				$(v[field]).addClass('Invalid');
+			} else{
+				$(v[field]).removeClass('Invalid');
+			}
 		return testSubmit();
 	}
 
 
-			var firstnameFunction = function(){
-				var inputField = 'firstname';
-				return validateAlphaFields(inputField);
-			}
-			var lastnameFunction = function(){
-				var inputField = 'lastname';
-				return validateAlphaFields(inputField);
-			}
+	var firstnameFunction = function(){
+		var inputField = 'firstname';
+		return validateAlphaFields(inputField);
+	}
+		var lastnameFunction = function(){
+			var inputField = 'lastname';
+			return validateAlphaFields(inputField);
+		}
 			var stateFunction = function(){
 				var inputField = 'state';
 				return validateAlphaFields(inputField);
 			}
-			var cityFunction = function(){
-				var inputField = 'city';
-				return validateAlphaFields(inputField);
-			}
-		
-
-			var emailFunction = function(){
-				var emailVal = v.email.val();
-				if(!emailVal || !emailVal.match(/[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+/)) {
-					$(v.email).addClass('Invalid');
-				} else{
-					$(v.email).removeClass('Invalid');
+				var cityFunction = function(){
+					var inputField = 'city';
+					return validateAlphaFields(inputField);
 				}
-				return testSubmit();
-			}
-			var addressFunction = function(){
-				return testSubmit();
-			}
+					var emailFunction = function(){
+						var emailVal = v.email.val();
+						if(!emailVal || !emailVal.match(/[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+/)) {
+							$(v.email).addClass('Invalid');
+						} else{
+							$(v.email).removeClass('Invalid');
+						}
+						return testSubmit();
+					}
+						var addressFunction = function(){
+							return testSubmit();
+						}
+							var zipFunction = function(){
+								var zipVal = v.zip.val();
+								if(!zipVal || !zipVal.match(/^[0-9]+$/)){
+									$(v.zip).addClass('Invalid');
+								} else{
+									$(v.zip).removeClass('Invalid');
+								}
+								return testSubmit();
+							}
 
-						//Birthday Validation Function
+			//Birthday Validation Function
 			var birthdayFunction = function(elem){
 				var birthdayValue = $(v.birthday).val().replace(/\D/g,'')
 					,bmonth = birthdayValue.slice(0,2)
@@ -153,7 +159,7 @@ jQuery(function($){
 					,dayInMilliseconds = 1000 * 60 * 60 * 24;
 					console.log('desktop' + bmonth + '' + bdate + '' + byear);
 				    
-				checkEmpty(elem);
+				//checkEmpty(elem);
 
 				if(!birthdayValue || Date.now() - compareDate < dayInMilliseconds * 365.25 * 18 + dayInMilliseconds || birthdayValue.length !== 8 || parseInt(bmonth) < 1 || parseInt(bmonth) > 12 || parseInt(bdate) < 1 || parseInt(bdate) > 31) {
 					console.log('invalid birthday');
@@ -165,17 +171,9 @@ jQuery(function($){
 				return testSubmit();
 			}
 
-			var zipFunction = function(){
-				var zipVal = v.zip.val();
-				if(!zipVal || !zipVal.match(/^[0-9]+$/)){
-					$(v.zip).addClass('Invalid');
-				} else{
-					$(v.zip).removeClass('Invalid');
-				}
-				return testSubmit();
-			}
 
-//EVENT HANDLERS
+
+//EVENT HANDLERS - DO NOT CHANGE
 //=====================================================
 
 	//First Name, Last Name, State, and City must not have digits
@@ -185,36 +183,39 @@ jQuery(function($){
 		testSubmit();
 	});
 
-		//Email must match correct format
-		$(v.email).bind('keyup',function(){
-			emailFunction();
-		});
-
-			//Zip Code must be numbers
-			$(v.zip).bind('keyup', function(){
-		  		this.value = this.value.replace(/[^0-9]/g,'');
-		  		checkEmpty(this);
-		  		testSubmit();
+			//Email must match correct format
+			$(v.email).bind('keyup',function(){
+				emailFunction();
 			});
 
-					//Address must start out with digits, then one space
-					$(v.address).bind('keyup',function(){
-						checkEmpty(this);
-						testSubmit();
+					//Zip Code must be numbers
+					$(v.zip).bind('keyup', function(){
+				  		this.value = this.value.replace(/[^0-9]/g,'');
+				  		checkEmpty(this);
+				  		testSubmit();
 					});
 
-							//Birthday must be 18 or older
-							$(v.birthday).bind('keyup',function(){
-								var that = this;
-								birthdayFunction(that);
+							//Address must start out with digits, then one space
+							$(v.address).bind('keyup',function(){
+								checkEmpty(this);
+								testSubmit();
 							});
 
-							$('#frmSignUp input').change(function(){
-								console.log('this ran');
-								testSubmit()
-							});
+									//Birthday must be 18 or older
+									$(v.birthday).bind('keyup',function(){
+										var that = this;
+										birthdayFunction(that);
+									});
+
+						//Auto Complete Check
+						$('#frmSignUp input').change(function(){
+							console.log('this ran');
+							testSubmit()
+						});
 
 
+//Validate all fields when Submit button is clicked
+//=====================================================
 		$('#frmSignUp').unbind('submit').submit(function(event){
 				event.preventDefault();
 				console.log('form submission');
