@@ -1,0 +1,26 @@
+body {
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   font-weight: 300;
+}
+
+#navigation ul{
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+#navigation li{
+	display:inline-block;
+}
+
+
+
+/* Smart Phones CSS */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+
+}
+
+
+/* Tablets CSS */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+
+}
