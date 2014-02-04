@@ -3,24 +3,77 @@ body {
    font-weight: 300;
 }
 
+/* Navigation Bar */
+#navigationContainer{
+	width:100%;
+	background:#000;
+	height:70px;
+	box-shadow: 0 8px 8px -2px black;
+	-webkit-box-shadow: 0 8px 8px -2px black;
+	-moz-box-shadow: 0 8px 8px -2px black;
+	position:absolute;
+}
+#napLogo{
+	width:50%;
+	float:left;
+	height:70px;
+}
+#napLogo img{
+	width:150px;
+	margin:10px;
+}
+#navigation {
+	width: 50%;
+	float: right;
+	height: 70px;
+}
 #navigation ul{
 	list-style-type:none;
 	margin:0;
 	padding:0;
+	width:95%;
+	text-align: right;
+	margin-top:25px;
 }
 #navigation li{
 	display:inline-block;
 }
+#navigation a {
+	text-decoration: none;
+	color: #fff;
+}
 
+/* Banner Images */
+#bannerImages {
+	width: 100%;
+	height: 500px;
+	overflow: hidden;
+}
+.bImage{
+	display:inline-block;
+}
+#bImage1{
+	background:url('/test/images/img_retreat_1.jpg') no-repeat;
+}
+#bImage2{
+	background:url('/test/images/img_retreat_1.jpg') no-repeat;
+}
+#bImage3{
+	background:url('/test/images/img_retreat_1.jpg') no-repeat;
+}
 
 
 /* Smart Phones CSS */
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-
+@media all and (min-width : 320px) and (max-width : 480px) {
+	#navigation ul{
+		margin-top:20px;
+	}
 }
 
 
 /* Tablets CSS */
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
-
+@media all and (min-width : 768px) and (max-width : 1024px) {
+	#navigation ul{
+		margin-top:20px;
+	}
 }
