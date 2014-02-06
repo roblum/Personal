@@ -34,6 +34,9 @@ jQuery(function($){
 							$('#' + optinNumber[i] + ' label').removeClass('Invalid');
 						}
 					}
+						$('#optin1, #optin2, #optin3, #optin4, #optin5').change(function(){
+							testSubmit();
+						});
 		}
 	}
 
@@ -71,13 +74,12 @@ jQuery(function($){
 						if (num !== cnum){
 							return false;
 						}
-						//checkOptin();
+						checkOptin();
 						//Disable submit if any invalid fields
 						if (invalidCount < 1){
 							disableEnable('enable');
 							return true;
 						} else{
-							console.log(invalidCount + 'disabling submit button more than 1')
 							return false;
 						}
 					}
@@ -97,7 +99,6 @@ jQuery(function($){
 			}
 		return testSubmit();
 	}
-
 
 	var firstnameFunction = function(){
 		var inputField = 'firstname';
@@ -146,19 +147,14 @@ jQuery(function($){
 			        ,convertDate = new Date(byear, bmonth, bdate)
 		        	,compareDate = convertDate.getTime()
 					,dayInMilliseconds = 1000 * 60 * 60 * 24;
-					console.log('desktop' + bmonth + '' + bdate + '' + byear);
 
 				if(!birthdayValue || Date.now() - compareDate < dayInMilliseconds * 365.25 * 18 + dayInMilliseconds || birthdayValue.length !== 8 || parseInt(bmonth) < 1 || parseInt(bmonth) > 12 || parseInt(bdate) < 1 || parseInt(bdate) > 31) {
-					console.log('invalid birthday');
 				    $(v.birthday).addClass('Invalid');
 				} else{
-					console.log('valid birthday');
 				    $(v.birthday).removeClass('Invalid');
 				}
 				return testSubmit();
 			}
-
-
 
 //EVENT HANDLERS - DO NOT CHANGE
 //=====================================================
@@ -210,11 +206,7 @@ jQuery(function($){
 						console.log(failures)
 					}
 				}
-				if (!failures) {
-					return true;
-				}else{
-					return false;
-				}
+				if (!failures) {return true;}else{return false;}
 		});
 	
 
