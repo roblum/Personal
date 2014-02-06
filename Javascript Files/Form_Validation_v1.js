@@ -1,5 +1,5 @@
 jQuery(function($){
-	//Form Validation 01_29_14
+	//Form Validation 02_06_14
 	var v = {
 		firstname: 	$('#firstname')
 		,lastname: 	$('#lastname')
@@ -39,18 +39,13 @@ jQuery(function($){
 
 			//Enable submit button if parameter === 'enable', else disable submit button
 			var disableEnable = function(condition){
-				console.log(condition)
 				if (condition === 'enable'){
 					//Enable submit button
 					$('#form_submit_button, #form-submit-button').removeAttr('disabled');
 				} else {
-					console.log('disableEnable returned false')
 					$('#form_submit_button, #form-submit-button').attr('disabled','disabled');
 				}
 			}
-			//Disable Submit Button on Page Load
-			disableEnable(false);
-
 
 	//Checks if current field highlighted is empty
 	var checkEmpty = function(field){
@@ -69,26 +64,20 @@ jQuery(function($){
 						for (s in v){++num;++cnum;}
 						for (e in v){
 							if (!v[e].val()){
-								console.log(v[e].val())
-								console.log(e + 'is empty' + 'num' + num);
 								--num;
 							}
 						}
 						//If any are empty, disable submit and exit function
 						if (num !== cnum){
-							console.log('ran empty false')
-							disableEnable(false);
 							return false;
 						}
 						//checkOptin();
 						//Disable submit if any invalid fields
-						console.log('num:' + num + 'cnum:' + cnum + 'invalidCount:' + invalidCount)
 						if (invalidCount < 1){
 							disableEnable('enable');
 							return true;
 						} else{
 							console.log(invalidCount + 'disabling submit button more than 1')
-							disableEnable(false);
 							return false;
 						}
 					}
@@ -158,8 +147,6 @@ jQuery(function($){
 		        	,compareDate = convertDate.getTime()
 					,dayInMilliseconds = 1000 * 60 * 60 * 24;
 					console.log('desktop' + bmonth + '' + bdate + '' + byear);
-				    
-				//checkEmpty(elem);
 
 				if(!birthdayValue || Date.now() - compareDate < dayInMilliseconds * 365.25 * 18 + dayInMilliseconds || birthdayValue.length !== 8 || parseInt(bmonth) < 1 || parseInt(bmonth) > 12 || parseInt(bdate) < 1 || parseInt(bdate) > 31) {
 					console.log('invalid birthday');
@@ -209,16 +196,13 @@ jQuery(function($){
 
 						//Auto Complete Check
 						$('#frmSignUp input').change(function(){
-							console.log('this ran');
-							testSubmit()
+							testSubmit();
 						});
 
 
 //Validate all fields when Submit button is clicked
 //=====================================================
-		$('#frmSignUp').unbind('submit').submit(function(event){
-				event.preventDefault();
-				console.log('form submission');
+		$('#frmSignUp').submit(function(event){
 				var failures = 0;
 				for (x in v){
 					if (!eval(x + 'Function()')){
@@ -226,9 +210,10 @@ jQuery(function($){
 						console.log(failures)
 					}
 				}
-
 				if (!failures) {
-					$('#frmSignUp').submit();
+					return true;
+				}else{
+					return false;
 				}
 		});
 	
