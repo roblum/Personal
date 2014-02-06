@@ -12,9 +12,6 @@ jQuery(function($){
 	}
 	//Fix Date.now on IE8
 	Date.now = Date.now || function() { return +new Date; };
-	
-	//Disable Auto-Complete on form
-	//$('#frmSignUp input').attr('autocomplete','off');
 
 	//Mask Birthday field (Using Post)
 	$(v.birthday).attr('placeholder','MM/DD/YYYY');
@@ -34,6 +31,8 @@ jQuery(function($){
 							$('#' + optinNumber[i] + ' label').removeClass('Invalid');
 						}
 					}
+
+						//Re-validate when optin selected
 						$('#optin1, #optin2, #optin3, #optin4, #optin5').change(function(){
 							testSubmit();
 						});
@@ -61,7 +60,7 @@ jQuery(function($){
 
 					//Test all fields to enable Submit Button
 					var testSubmit = function(){
-						var invalidCount = $('.Invalid').length
+						var invalidCount = $('#frmSignUp .Invalid').length
 							,num = 0,cnum = 0;
 						//Store amount of variables in "v" object
 						for (s in v){++num;++cnum;}
@@ -100,31 +99,15 @@ jQuery(function($){
 		return testSubmit();
 	}
 
-	var firstnameFunction = function(){
-		var inputField = 'firstname';
-		return validateAlphaFields(inputField);
-	}
-		var lastnameFunction = function(){
-			var inputField = 'lastname';
-			return validateAlphaFields(inputField);
-		}
-			var stateFunction = function(){
-				var inputField = 'state';
-				return validateAlphaFields(inputField);
-			}
-				var cityFunction = function(){
-					var inputField = 'city';
-					return validateAlphaFields(inputField);
-				}
-					var emailFunction = function(){
-						var emailVal = v.email.val();
-						if(!emailVal || !emailVal.match(/[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+/)) {
-							$(v.email).addClass('Invalid');
-						} else{
-							$(v.email).removeClass('Invalid');
-						}
-						return testSubmit();
+			var emailFunction = function(){
+				var emailVal = v.email.val();
+					if(!emailVal || !emailVal.match(/[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+/)) {
+						$(v.email).addClass('Invalid');
+					} else{
+						$(v.email).removeClass('Invalid');
 					}
+					return testSubmit();
+				}
 						var addressFunction = function(){
 							return testSubmit();
 						}
@@ -201,9 +184,16 @@ jQuery(function($){
 		$('#frmSignUp').submit(function(event){
 				var failures = 0;
 				for (x in v){
-					if (!eval(x + 'Function()')){
-						failures++;
-						console.log(failures)
+					if (x ==='firstname' || x === 'lastname' || x === 'state' || x === 'city'){
+						console.log('matched ' + x)
+						if (!eval('validateAlphaFields('+ x +')')){
+							failures++;
+						}
+					}else{
+						if (!eval(x + 'Function()')){
+							failures++;
+							console.log(failures)
+						}
 					}
 				}
 				if (!failures) {return true;}else{return false;}
