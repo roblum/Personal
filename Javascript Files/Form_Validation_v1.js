@@ -10,12 +10,13 @@ jQuery(function($){
 		,zip: 		$('#zip')
 		,birthday: 	$('#post') //NOT USING STANDARD BIRTHDAY FIELD
 	}
-	//Fix Date.now on IE8
-	Date.now = Date.now || function() { return +new Date; };
 
 	//Mask Birthday field (Using Post)
 	$(v.birthday).attr('placeholder','MM/DD/YYYY');
 	$(v.birthday).mask('99/99/9999');
+
+	//Fix Date.now on IE8
+	Date.now = Date.now || function() { return +new Date; };
 
 	//Check Required Optins	
 	var checkOptin = function(){
@@ -60,8 +61,13 @@ jQuery(function($){
 
 					//Test all fields to enable Submit Button
 					var testSubmit = function(){
-						var invalidCount = $('#frmSignUp .Invalid').length
-							,num = 0,cnum = 0;
+						var invalidCount = 0;
+						for (k in v){
+							if ($('#' + k).hasClass('Invalid')){
+								++invalidCount;
+							}
+						}
+							var num = 0,cnum = 0;
 						//Store amount of variables in "v" object
 						for (s in v){++num;++cnum;}
 						for (e in v){
