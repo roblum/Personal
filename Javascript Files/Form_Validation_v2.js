@@ -168,8 +168,7 @@ var firstnameObject = {
 					//Zip Code must be numbers
 					$(v.zip).bind('keyup', function(){
 				  		this.value = this.value.replace(/[^0-9]/g,'');
-				  		generalMethods.checkEmpty(this);
-				  		generalMethods.testSubmit();
+				  		zipObject.validate();
 					});
 
 							//Address must start out with digits, then one space
