@@ -19,7 +19,7 @@ jQuery(function($){
 	Date.now = Date.now || function() { return +new Date; };
 
 	//Check Required Optins	
-	var checkOptin = function(){
+	/*var checkOptin = function(){
 		if ($('.SDeclare:not(:has(>span))').length > 0){
 				var optinNumber = [];
 				$('.SDeclare:not(:has(>span))').each(function(){
@@ -38,7 +38,7 @@ jQuery(function($){
 							testSubmit();
 						});
 		}
-	}
+	}*/
 
 			//Enable submit button if parameter === 'enable', else disable submit button
 			var disableEnable = function(condition){
@@ -53,9 +53,9 @@ jQuery(function($){
 	//Checks if current field highlighted is empty
 	var checkEmpty = function(field){
 		if (!field.value){
-			$(field).addClass('Invalid');
+			$(field).addClass('Invalid entryInvalid');
 		} else{
-			$(field).removeClass('Invalid');
+			$(field).removeClass('Invalid entryInvalid');
 		}
 	}
 
@@ -63,10 +63,11 @@ jQuery(function($){
 					var testSubmit = function(){
 						var invalidCount = 0;
 						for (k in v){
-							if ($('#' + k).hasClass('Invalid')){
+							if ($('#' + v[k].attr('id')).is('.Invalid, .entryInvalid')){
 								++invalidCount;
 							}
 						}
+						console.log(invalidCount)
 							var num = 0,cnum = 0;
 						//Store amount of variables in "v" object
 						for (s in v){++num;++cnum;}
@@ -79,7 +80,7 @@ jQuery(function($){
 						if (num !== cnum){
 							return false;
 						}
-						checkOptin();
+						//checkOptin();
 						//Disable submit if any invalid fields
 						if (invalidCount < 1){
 							disableEnable('enable');
@@ -98,9 +99,9 @@ jQuery(function($){
 		var currentValue = $(v[field]).val();
 		console.log(currentValue);
 			if (!currentValue || !currentValue.match(/^[A-z]+$/)){
-				$(v[field]).addClass('Invalid');
+				$(v[field]).addClass('Invalid entryInvalid');
 			} else{
-				$(v[field]).removeClass('Invalid');
+				$(v[field]).removeClass('Invalid entryInvalid');
 			}
 		return testSubmit();
 	}
@@ -108,9 +109,9 @@ jQuery(function($){
 			var emailFunction = function(){
 				var emailVal = v.email.val();
 					if(!emailVal || !emailVal.match(/[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+/)) {
-						$(v.email).addClass('Invalid');
+						$(v.email).addClass('Invalid entryInvalid');
 					} else{
-						$(v.email).removeClass('Invalid');
+						$(v.email).removeClass('Invalid entryInvalid');
 					}
 					return testSubmit();
 				}
@@ -120,9 +121,9 @@ jQuery(function($){
 							var zipFunction = function(){
 								var zipVal = v.zip.val();
 								if(!zipVal || !zipVal.match(/^[0-9]+$/)){
-									$(v.zip).addClass('Invalid');
+									$(v.zip).addClass('Invalid entryInvalid');
 								} else{
-									$(v.zip).removeClass('Invalid');
+									$(v.zip).removeClass('Invalid entryInvalid');
 								}
 								return testSubmit();
 							}
@@ -138,9 +139,9 @@ jQuery(function($){
 					,dayInMilliseconds = 1000 * 60 * 60 * 24;
 
 				if(!birthdayValue || Date.now() - compareDate < dayInMilliseconds * 365.25 * 18 + dayInMilliseconds || birthdayValue.length !== 8 || parseInt(bmonth) < 1 || parseInt(bmonth) > 12 || parseInt(bdate) < 1 || parseInt(bdate) > 31) {
-				    $(v.birthday).addClass('Invalid');
+				    $(v.birthday).addClass('Invalid entryInvalid');
 				} else{
-				    $(v.birthday).removeClass('Invalid');
+				    $(v.birthday).removeClass('Invalid entryInvalid');
 				}
 				return testSubmit();
 			}
@@ -204,6 +205,5 @@ jQuery(function($){
 				}
 				if (!failures) {return true;}else{return false;}
 		});
-	
 
 });
