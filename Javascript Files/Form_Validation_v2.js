@@ -89,7 +89,7 @@ var firstnameObject = {
 			,labelName : $('#sfield_address label').text().trim()
 			,validate : function(){
 					return generalMethods.testSubmit();
-				}
+			}
 }, stateObject = {
 			fieldName : 'state'
 			,labelName : $('#sfield_state label').text().trim()
@@ -192,7 +192,7 @@ var firstnameObject = {
 		$('#frmSignUp').submit(function(event){
 				var failures = 0;
 				for (x in v){
-					if (!eval(x + 'Object.validate('+ x +')')){
+					if (!eval(x + 'Object.validate('+ JSON.stringify(x) +')')){
 						failures++;
 						console.log(failures)
 					}
