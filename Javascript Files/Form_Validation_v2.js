@@ -27,13 +27,13 @@ var generalMethods = {
 	validateAlphaFields : function(field){
 				console.log(field)
 				var currentValue = $(v[field]).val();
-				console.log(currentValue);
+				console.log('current value:' + currentValue);
 					if (!currentValue || !currentValue.match(/^[A-z]+$/)){
 						$(v[field]).addClass('Invalid');
-						$('#s-'+ field.id).html(eval(field.id + 'Object.labelName'));
+						$('#s-'+ field).html(eval(field + 'Object.labelName'));
 					} else{
 						$(v[field]).removeClass('Invalid');
-						$('#s-'+ this.id).empty();
+						$('#s-'+ field).empty();
 					}
 				return generalMethods.testSubmit();
 	}
@@ -156,8 +156,7 @@ var firstnameObject = {
 	//First Name, Last Name, State, and City must not have digits
 	$(v.firstname).add(v.lastname).add(v.state).add(v.city).bind('keyup', function(){
 		this.value = this.value.replace(/\d|[\.,<>-?\/#!@$%\^&\*;:{}=+\-_`'"~()\\\[\]\|]/g,'');
-		generalMethods.checkEmpty(this);
-		generalMethods.testSubmit();
+		eval(this.id + 'Object.validate(' + JSON.stringify(this.id) + ')');
 	});
 
 			//Email must match correct format
