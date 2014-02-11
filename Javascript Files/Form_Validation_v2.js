@@ -88,6 +88,14 @@ var firstnameObject = {
 			fieldName : 'address'
 			,labelName : $('#sfield_address label').text().trim()
 			,validate : function(){
+					var addressVal = v.address.val();
+						if (!addressVal){
+							$(v.address).addClass('Invalid');
+							$('#s-address').html(addressObject.labelName);
+						}else{
+							$(v.address).removeClass('Invalid');
+							$('#s-address').empty();
+						}
 					return generalMethods.testSubmit();
 			}
 }, stateObject = {
@@ -172,8 +180,7 @@ var firstnameObject = {
 
 							//Address must start out with digits, then one space
 							$(v.address).bind('keyup',function(){
-								generalMethods.checkEmpty(this);
-								generalMethods.testSubmit();
+								addressObject.validate();
 							});
 
 									//Birthday must be 18 or older
