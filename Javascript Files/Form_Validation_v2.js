@@ -44,16 +44,6 @@ var generalMethods = {
 					$('#form_submit_button, #form-submit-button').removeAttr('disabled');
 				}
 			}
-	//Checks if current field highlighted is empty
-	,checkEmpty : function(field){
-				if (!field.value){
-					$(field).addClass('Invalid');
-					$('#s-'+ this.id).html(eval(this.id + 'Object.labelName'));
-				} else{
-					$(field).removeClass('Invalid');
-					$('#s-'+ this.id).empty();
-				}
-	}
 	//Test all fields to enable Submit Button
 	,testSubmit : function(){
 				var invalidCount = 0;
@@ -74,7 +64,7 @@ var generalMethods = {
 				}
 }
 			
-//Validate Fields Functions
+//Validate Fields Objects
 //=====================================================
 var firstnameObject = {
 			fieldName : 'firstname'
@@ -192,6 +182,15 @@ var firstnameObject = {
 						$('#frmSignUp input').change(function(){
 							generalMethods.testSubmit();
 						});
+
+				//Auto Complete Check
+				/*$('#facebook-connect-link').click(function(){
+					$('#frmSignUp input').change(function(){
+						for (p in v){
+							eval(p + 'Object.validate('+ JSON.stringify(p) +')')
+						}
+					});
+				});*/
 
 
 //Validate all fields when Submit button is clicked
