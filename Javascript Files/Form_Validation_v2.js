@@ -67,16 +67,13 @@ var generalMethods = {
 //Validate Fields Objects
 //=====================================================
 var firstnameObject = {
-			fieldName : 'firstname'
-			,labelName : $('#sfield_firstname label').text().trim()
+			labelName : $('#sfield_firstname label').text().trim()
 			,validate : generalMethods.validateAlphaFields
 }, lastnameObject = {
-			fieldName : 'lastname'
-			,labelName : $('#sfield_lastname label').text().trim()
+			labelName : $('#sfield_lastname label').text().trim()
 			,validate : generalMethods.validateAlphaFields
 }, addressObject = {
-			fieldName : 'address'
-			,labelName : $('#sfield_address label').text().trim()
+			labelName : $('#sfield_address label').text().trim()
 			,validate : function(){
 					var addressVal = v.address.val();
 						if (!addressVal){
@@ -89,16 +86,13 @@ var firstnameObject = {
 					return generalMethods.testSubmit();
 			}
 }, stateObject = {
-			fieldName : 'state'
-			,labelName : $('#sfield_state label').text().trim()
+			labelName : $('#sfield_state label').text().trim()
 			,validate : generalMethods.validateAlphaFields
 }, cityObject = {
-			fieldName : 'city'
-			,labelName : $('#sfield_city label').text().trim()
+			labelName : $('#sfield_city label').text().trim()
 			,validate : generalMethods.validateAlphaFields
 }, emailObject = {
-			fieldName : 'email'
-			,labelName : $('#sfield_email label').text().trim()
+			labelName : $('#sfield_email label').text().trim()
 			,validate : function(){
 						var emailVal = v.email.val();
 							if(!emailVal || !emailVal.match(/[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+/)) {
@@ -111,8 +105,7 @@ var firstnameObject = {
 							return generalMethods.testSubmit();
 						}
 }, zipObject = {
-		fieldName : 'zip'
-		,labelName : $('#sfield_zip label').text().trim()
+		labelName : $('#sfield_zip label').text().trim()
 		,validate : function(){
 					var zipVal = v.zip.val();
 						if(!zipVal || !zipVal.match(/^[0-9]+$/)){
@@ -125,8 +118,7 @@ var firstnameObject = {
 							return generalMethods.testSubmit();
 					}
 }, birthdayObject = {
-		fieldName : 'birthday'
-		,labelName : $('#sfield_' + v.birthday.attr('id') + ' label').text().trim()
+		labelName : $('#sfield_' + v.birthday.attr('id') + ' label').text().trim()
 		,validate : function(){
 					var birthdayValue = $(v.birthday).val().replace(/\D/g,'')
 						,bmonth = birthdayValue.slice(0,2)
