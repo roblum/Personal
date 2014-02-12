@@ -1,5 +1,6 @@
 jQuery(function($){
-	//Form Validation 02_06_14
+	//Form Validation 02_12_14
+	//Comment out each field not being used
 	var v = {
 		firstname: 	$('#firstname')
 		,lastname: 	$('#lastname')
@@ -11,9 +12,11 @@ jQuery(function($){
 		,birthday: 	$('#post') //NOT USING STANDARD BIRTHDAY FIELD
 	}
 
-	//Mask Birthday field (Using Post)
-	$(v.birthday).attr('placeholder','MM/DD/YYYY');
-	$(v.birthday).mask('99/99/9999');
+	//Mask Birthday field (Using Post) - Disable if no birthday validation
+	if ('birthday' in v){
+		$(v.birthday).attr('placeholder','MM/DD/YYYY');
+		$(v.birthday).mask('99/99/9999');
+	}
 
 	//Fix Date.now on IE8
 	Date.now = Date.now || function() { return +new Date; };
@@ -189,7 +192,6 @@ var firstnameObject = {
 						failures++;
 						console.log(failures)
 					}
-					
 				}
 				if (!failures) {return true;}else{return false;}
 		});
