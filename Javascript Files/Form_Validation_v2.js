@@ -19,7 +19,7 @@ jQuery(function($){
 	Date.now = Date.now || function() { return +new Date; };
 
 	//Add Error Message
-	$('<div id="errorMessage">Please fill in the red highlighted boxes: <span id="s-firstname"></span> <span id="s-lastname"></span> <span id="s-email"></span> <span id="s-address"></span> <span id="s-state"></span> <span id="s-city"></span> <span id="s-zip"></span> <span id="s-birthday"></span></div>').appendTo('.SFields');
+	$('<div id="errorMessage">Please fill in the red highlighted boxes: <span id="s-firstname"></span> <span id="s-lastname"></span> <span id="s-email"></span> <span id="s-address"></span> <span id="s-state"></span> <span id="s-city"></span> <span id="s-zip"></span> <span id="s-birthday"></span></div>').appendTo('.SFields, .submit-fields');
 
 
 var generalMethods = {
@@ -126,7 +126,7 @@ var firstnameObject = {
 					}
 }, birthdayObject = {
 		fieldName : 'birthday'
-		,labelName : $('#sfield_post label').text().trim()
+		,labelName : $('#sfield_' + v.birthday.attr('id') + ' label').text().trim()
 		,validate : function(){
 					var birthdayValue = $(v.birthday).val().replace(/\D/g,'')
 						,bmonth = birthdayValue.slice(0,2)
@@ -178,19 +178,14 @@ var firstnameObject = {
 										birthdayObject.validate();
 									});
 
-						//Auto Complete Check
-						$('#frmSignUp input').change(function(){
-							generalMethods.testSubmit();
-						});
-
 				//Auto Complete Check
-				/*$('#facebook-connect-link').click(function(){
-					$('#frmSignUp input').change(function(){
+				$('#facebook-connect-link').click(function(){
+					setTimeout(function(){
 						for (p in v){
 							eval(p + 'Object.validate('+ JSON.stringify(p) +')')
 						}
-					});
-				});*/
+					},1000);
+				});
 
 
 //Validate all fields when Submit button is clicked
