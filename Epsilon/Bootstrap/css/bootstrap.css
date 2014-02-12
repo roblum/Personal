@@ -5290,6 +5290,9 @@ button.close {
   .hidden-tablet {
     display: none !important;
   }
+  .navbar-wrapper{
+    margin-top:20px;
+  }
 }
 @media (max-width: 767px) {
   .hidden-desktop {
@@ -5303,6 +5306,9 @@ button.close {
   }
   .hidden-phone {
     display: none !important;
+  }
+  .navbar-wrapper{
+    margin-top:20px;
   }
 }
 .visible-print {
@@ -6338,6 +6344,7 @@ button.close {
       right: 0;
       z-index: 10;
       margin-bottom: -90px; /* Negative margin to pull up carousel. 90px is roughly margins and height of navbar. */
+      opacity:0.85;
     }
     .navbar-wrapper .navbar {
 
