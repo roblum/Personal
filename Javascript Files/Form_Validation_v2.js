@@ -51,7 +51,7 @@ var generalMethods = {
 	,testSubmit : function(){
 				var invalidCount = 0;
 				$('#errorMessage span').each(function(){
-					if ($(this).text().trim().length){
+					if ($.trim($(this).text()).length){
 						invalidCount++;
 					}
 				});
@@ -70,13 +70,13 @@ var generalMethods = {
 //Validate Fields Objects
 //=====================================================
 var firstnameObject = {
-			labelName : $('#sfield_firstname label').text().trim()
+			labelName : $.trim($('#sfield_firstname label').text())
 			,validate : generalMethods.validateAlphaFields
 }, lastnameObject = {
-			labelName : $('#sfield_lastname label').text().trim()
+			labelName : $.trim($('#sfield_lastname label').text())
 			,validate : generalMethods.validateAlphaFields
 }, addressObject = {
-			labelName : $('#sfield_address label').text().trim()
+			labelName : $.trim($('#sfield_address label').text())
 			,validate : function(){
 					var addressVal = v.address.val();
 						if (!addressVal){
@@ -89,13 +89,13 @@ var firstnameObject = {
 					return generalMethods.testSubmit();
 			}
 }, stateObject = {
-			labelName : $('#sfield_state label').text().trim()
+			labelName : $.trim($('#sfield_state label').text())
 			,validate : generalMethods.validateAlphaFields
 }, cityObject = {
-			labelName : $('#sfield_city label').text().trim()
+			labelName : $.trim($('#sfield_city label').text())
 			,validate : generalMethods.validateAlphaFields
 }, emailObject = {
-			labelName : $('#sfield_email label').text().trim()
+			labelName : $.trim($('#sfield_email label').text())
 			,validate : function(){
 						var emailVal = v.email.val();
 							if(!emailVal || !emailVal.match(/[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+/)) {
@@ -108,7 +108,7 @@ var firstnameObject = {
 							return generalMethods.testSubmit();
 						}
 }, zipObject = {
-		labelName : $('#sfield_zip label').text().trim()
+		labelName : $.trim($('#sfield_zip label').text())
 		,validate : function(){
 					var zipVal = v.zip.val();
 						if(!zipVal || !zipVal.match(/^[0-9]+$/)){
@@ -121,7 +121,7 @@ var firstnameObject = {
 							return generalMethods.testSubmit();
 					}
 }, birthdayObject = {
-		labelName : $('#sfield_' + v.birthday.attr('id') + ' label').text().trim()
+		labelName : $.trim($('#sfield_' + v.birthday.attr('id') + ' label').text())
 		,validate : function(){
 					var birthdayValue = $(v.birthday).val().replace(/\D/g,'')
 						,bmonth = birthdayValue.slice(0,2)
@@ -133,7 +133,7 @@ var firstnameObject = {
 
 					if(!birthdayValue || Date.now() - compareDate < dayInMilliseconds * 365.25 * 18 + dayInMilliseconds || birthdayValue.length !== 8 || parseInt(bmonth) < 1 || parseInt(bmonth) > 12 || parseInt(bdate) < 1 || parseInt(bdate) > 31) {
 					    $(v.birthday).addClass('Invalid');
-					    $('#s-birthday').html(birthdayObject.labelName);
+					    $('#s-birthday').html(birthdayObject.labelName + ' (18+)');
 					} else{
 					    $(v.birthday).removeClass('Invalid');
 					    $('#s-birthday').empty();
