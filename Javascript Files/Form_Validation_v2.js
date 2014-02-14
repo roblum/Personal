@@ -31,7 +31,7 @@ var generalMethods = {
 				console.log(field)
 				var currentValue = $(v[field]).val();
 				console.log('current value:' + currentValue);
-					if (!currentValue || !currentValue.match(/^[A-z]+$/)){
+					if (!currentValue || !currentValue.match(/^[\sA-z]+$/)){
 						$(v[field]).addClass('Invalid');
 						$('#s-'+ field).html(eval(field + 'Object.labelName'));
 					} else{
@@ -131,7 +131,7 @@ var firstnameObject = {
 			        	,compareDate = convertDate.getTime()
 						,dayInMilliseconds = 1000 * 60 * 60 * 24;
 
-					if(!birthdayValue || Date.now() - compareDate < dayInMilliseconds * 365.25 * 18 + dayInMilliseconds || birthdayValue.length !== 8 || parseInt(bmonth) < 1 || parseInt(bmonth) > 12 || parseInt(bdate) < 1 || parseInt(bdate) > 31) {
+					if(!birthdayValue || Date.now() - compareDate < dayInMilliseconds * 365.25 * 18 + dayInMilliseconds || birthdayValue.length !== 8 || parseInt(bmonth) < 1 || parseInt(bmonth) > 12 || parseInt(bdate) < 1 || parseInt(bdate) > 31 || parseInt(byear) < 1900) {
 					    $(v.birthday).addClass('Invalid');
 					    $('#s-birthday').html(birthdayObject.labelName + ' (18+)');
 					} else{
@@ -147,10 +147,16 @@ var firstnameObject = {
 //=====================================================
 
 	//First Name, Last Name, State, and City must not have digits
-	$(v.firstname).add(v.lastname).add(v.state).add(v.city).bind('keyup', function(){
-		this.value = this.value.replace(/\d|[\.,<>-?\/#!@$%\^&\*;:{}=+\-_`'"~()\\\[\]\|]/g,'');
-		eval(this.id + 'Object.validate(' + JSON.stringify(this.id) + ')');
-	});
+	if (/Android/i.test(navigator.userAgent)){
+			$(v.firstname).add(v.lastname).add(v.state).add(v.city).bind('keyup', function(){
+				eval(this.id + 'Object.validate(' + JSON.stringify(this.id) + ')');
+			});
+	} else{
+			$(v.firstname).add(v.lastname).add(v.state).add(v.city).bind('keyup', function(){
+				this.value = this.value.replace(/\d|[\.,<>-?\/#!@$%\^&\*;:{}=+\-_`'"~()\\\[\]\|]/g,'');
+				eval(this.id + 'Object.validate(' + JSON.stringify(this.id) + ')');
+			});
+	}
 
 			//Email must match correct format
 			$(v.email).bind('keyup',function(){
