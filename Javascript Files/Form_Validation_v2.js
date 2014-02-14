@@ -25,13 +25,10 @@ jQuery(function($){
 	//Add Error Message
 	$('<div id="errorMessage">Please fill in the red highlighted boxes: <span id="s-firstname"></span> <span id="s-lastname"></span> <span id="s-email"></span> <span id="s-address"></span> <span id="s-state"></span> <span id="s-city"></span> <span id="s-zip"></span> <span id="s-birthday"></span></div>').appendTo('.SFields, .submit-fields');
 
-
 var generalMethods = {
 	//Validate Alpha
 	validateAlphaFields : function(field){
-				console.log(field)
 				var currentValue = $(v[field]).val();
-				console.log('current value:' + currentValue);
 					if (!currentValue || !currentValue.match(/^[\sA-z]+$/)){
 						$(v[field]).addClass('Invalid');
 						$('#s-'+ field).html(eval(field + 'Object.labelName'));
@@ -156,7 +153,6 @@ var firstnameObject = {
 				}
 }
 
-
 //EVENT HANDLERS - DO NOT CHANGE
 //=====================================================
 
@@ -207,7 +203,6 @@ var firstnameObject = {
 					},1000);
 				});
 
-
 //Validate all fields when Submit button is clicked
 //=====================================================
 		$('#frmSignUp').submit(function(event){
@@ -215,7 +210,6 @@ var firstnameObject = {
 				for (x in v){
 					if (!eval(x + 'Object.validate('+ JSON.stringify(x) +')')){
 						failures++;
-						console.log(failures)
 					}
 				}
 				if (!failures) {return true;}else{return false;}
