@@ -5,7 +5,8 @@ jQuery(function($){
 		firstname: 	$('#firstname')
 		,lastname: 	$('#lastname')
 		,address: 	$('#address')
-		,state: 	$('#state')
+		//,state: 	$('#state')
+		,state2:    $('#gender')
 		,city: 		$('#city')
 		,email: 	$('#email')
 		,zip: 		$('#zip')
@@ -91,6 +92,19 @@ var firstnameObject = {
 }, stateObject = {
 			labelName : $.trim($('#sfield_state label').text())
 			,validate : generalMethods.validateAlphaFields
+}, state2Object = {
+			labelName : $.trim($('#sfield_gender label').text())
+			,validate : function(){
+						var genderVal = v.state2.val();
+							if (!genderVal){
+								$(v.state2).addClass('Invalid');
+								$('#s-state').html(state2Object.labelName);
+							} else{
+								$(v.state2).removeClass('Invalid');
+								$('#s-state').empty();
+							}
+							return generalMethods.testSubmit();
+			}
 }, cityObject = {
 			labelName : $.trim($('#sfield_city label').text())
 			,validate : generalMethods.validateAlphaFields
@@ -158,6 +172,11 @@ var firstnameObject = {
 			});
 	}
 
+		//This state event handler is for the #gender select
+		$(v.state2).change(function(){
+			state2Object.validate();
+		});
+
 			//Email must match correct format
 			$(v.email).bind('keyup',function(){
 				emailObject.validate();
@@ -201,5 +220,4 @@ var firstnameObject = {
 				}
 				if (!failures) {return true;}else{return false;}
 		});
-
 });
