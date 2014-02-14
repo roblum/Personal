@@ -77,7 +77,7 @@ var firstnameObject = {
 			labelName : $.trim($('#sfield_address label').text())
 			,validate : function(){
 					var addressVal = v.address.val();
-						if (!addressVal){
+						if (!addressVal || addressVal.length <= 2 ){
 							$(v.address).addClass('Invalid');
 							$('#s-address').html(addressObject.labelName);
 						}else{
