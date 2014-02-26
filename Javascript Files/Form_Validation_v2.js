@@ -67,92 +67,117 @@ var generalMethods = {
 			
 //Validate Fields Objects
 //=====================================================
-var firstnameObject = {
-			labelName : $.trim($('#sfield_firstname label').text())
-			,validate : generalMethods.validateAlphaFields
-}, lastnameObject = {
-			labelName : $.trim($('#sfield_lastname label').text())
-			,validate : generalMethods.validateAlphaFields
-}, addressObject = {
-			labelName : $.trim($('#sfield_address label').text())
-			,validate : function(){
-					var addressVal = v.address.val();
-						if (!addressVal || addressVal.length <= 2 ){
-							$(v.address).addClass('Invalid');
-							$('#s-address').html(addressObject.labelName);
-						}else{
-							$(v.address).removeClass('Invalid');
-							$('#s-address').empty();
-						}
-					return generalMethods.testSubmit();
-			}
-}, stateObject = {
-			labelName : $.trim($('#sfield_state label').text())
-			,validate : generalMethods.validateAlphaFields
-}, state2Object = {
-			labelName : $.trim($('#sfield_gender label').text())
-			,validate : function(){
-						var genderVal = v.state2.val();
-							if (!genderVal){
-								$(v.state2).addClass('Invalid');
-								$('#s-state').html(state2Object.labelName);
-							} else{
-								$(v.state2).removeClass('Invalid');
-								$('#s-state').empty();
-							}
-							return generalMethods.testSubmit();
-			}
-}, cityObject = {
-			labelName : $.trim($('#sfield_city label').text())
-			,validate : generalMethods.validateAlphaFields
-}, emailObject = {
-			labelName : $.trim($('#sfield_email label').text())
-			,validate : function(){
-						var emailVal = v.email.val();
-							if(!emailVal || !emailVal.match(/[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+/)) {
-								$(v.email).addClass('Invalid');
-								$('#s-email').html(emailObject.labelName);
-							} else{
-								$(v.email).removeClass('Invalid');
-								$('#s-email').empty();
-							}
-							return generalMethods.testSubmit();
-						}
-}, zipObject = {
-		labelName : $.trim($('#sfield_zip label').text())
-		,validate : function(){
-					var zipVal = v.zip.val();
-						if(!zipVal || !zipVal.match(/^[0-9]+$/)){
-							$(v.zip).addClass('Invalid');
-							$('#s-zip').html(zipObject.labelName);
-						} else{
-							$(v.zip).removeClass('Invalid');
-							$('#s-zip').empty();
-						}
-							return generalMethods.testSubmit();
-					}
-}, birthdayObject = {
-		labelName : $.trim($('#sfield_' + v.birthday.attr('id') + ' label').text())
-		,validate : function(){
-					var birthdayValue = $(v.birthday).val().replace(/\D/g,'')
-						,bmonth = birthdayValue.slice(0,2)
-				        ,bdate = birthdayValue.slice(2,4)
-				        ,byear = birthdayValue.slice(4,8)
-				        ,convertDate = new Date(byear, bmonth, bdate)
-			        	,compareDate = convertDate.getTime()
-						,dayInMilliseconds = 1000 * 60 * 60 * 24;
-
-					if(!birthdayValue || Date.now() - compareDate < dayInMilliseconds * 365.25 * 18 + dayInMilliseconds || birthdayValue.length !== 8 || parseInt(bmonth) < 1 || parseInt(bmonth) > 12 || parseInt(bdate) < 1 || parseInt(bdate) > 31 || parseInt(byear) < 1900) {
-					    $(v.birthday).addClass('Invalid');
-					    $('#s-birthday').html(birthdayObject.labelName + ' (18+)');
-					} else{
-					    $(v.birthday).removeClass('Invalid');
-					    $('#s-birthday').empty();
-					}
-					return generalMethods.testSubmit();
-				}
+if ('firstname' in v){
+	var firstnameObject = {
+				labelName : $.trim($('#sfield_firstname label').text())
+				,validate : generalMethods.validateAlphaFields
+	}
 }
+if ('lastname' in v){
+	var lastnameObject = {
+				labelName : $.trim($('#sfield_lastname label').text())
+				,validate : generalMethods.validateAlphaFields
+	}
+}
+if ('address' in v){
+	var addressObject = {
+				labelName : $.trim($('#sfield_address label').text())
+				,validate : function(){
+						var addressVal = v.address.val();
+							if (!addressVal || addressVal.length <= 2 ){
+								$(v.address).addClass('Invalid');
+								$('#s-address').html(addressObject.labelName);
+							}else{
+								$(v.address).removeClass('Invalid');
+								$('#s-address').empty();
+							}
+						return generalMethods.testSubmit();
+				}
+	}
+}
+if ('state' in v){
+	var stateObject = {
+				labelName : $.trim($('#sfield_state label').text())
+				,validate : generalMethods.validateAlphaFields
+	}
+}
+if ('state2' in v){
+	var state2Object = {
+				labelName : $.trim($('#sfield_gender label').text())
+				,validate : function(){
+							var genderVal = v.state2.val();
+								if (!genderVal){
+									$(v.state2).addClass('Invalid');
+									$('#s-state').html(state2Object.labelName);
+								} else{
+									$(v.state2).removeClass('Invalid');
+									$('#s-state').empty();
+								}
+								return generalMethods.testSubmit();
+				}
+	}
+}
+if ('city' in v){
+	var cityObject = {
+				labelName : $.trim($('#sfield_city label').text())
+				,validate : generalMethods.validateAlphaFields
+	}
+}
+if ('email' in v){
+	var emailObject = {
+				labelName : $.trim($('#sfield_email label').text())
+				,validate : function(){
+							var emailVal = v.email.val();
+								if(!emailVal || !emailVal.match(/[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+/)) {
+									$(v.email).addClass('Invalid');
+									$('#s-email').html(emailObject.labelName);
+								} else{
+									$(v.email).removeClass('Invalid');
+									$('#s-email').empty();
+								}
+								return generalMethods.testSubmit();
+							}
+	}
+}
+if ('zip' in v){
+	var zipObject = {
+			labelName : $.trim($('#sfield_zip label').text())
+			,validate : function(){
+						var zipVal = v.zip.val();
+							if(!zipVal || !zipVal.match(/^[0-9]+$/)){
+								$(v.zip).addClass('Invalid');
+								$('#s-zip').html(zipObject.labelName);
+							} else{
+								$(v.zip).removeClass('Invalid');
+								$('#s-zip').empty();
+							}
+								return generalMethods.testSubmit();
+						}
+	}
+}
+if ('birthday' in v){
+	var birthdayObject = {
+			labelName : $.trim($('#sfield_' + v.birthday.attr('id') + ' label').text())
+			,validate : function(){
+						var birthdayValue = $(v.birthday).val().replace(/\D/g,'')
+							,bmonth = birthdayValue.slice(0,2)
+					        ,bdate = birthdayValue.slice(2,4)
+					        ,byear = birthdayValue.slice(4,8)
+					        ,convertDate = new Date(byear, bmonth, bdate)
+				        	,compareDate = convertDate.getTime()
+							,dayInMilliseconds = 1000 * 60 * 60 * 24;
 
+						if(!birthdayValue || Date.now() - compareDate < dayInMilliseconds * 365.25 * 18 + dayInMilliseconds || birthdayValue.length !== 8 || parseInt(bmonth) < 1 || parseInt(bmonth) > 12 || parseInt(bdate) < 1 || parseInt(bdate) > 31 || parseInt(byear) < 1900) {
+						    $(v.birthday).addClass('Invalid');
+						    $('#s-birthday').html(birthdayObject.labelName + ' (18+)');
+						} else{
+						    $(v.birthday).removeClass('Invalid');
+						    $('#s-birthday').empty();
+						}
+						return generalMethods.testSubmit();
+					}
+	}
+}
 //EVENT HANDLERS - DO NOT CHANGE
 //=====================================================
 
