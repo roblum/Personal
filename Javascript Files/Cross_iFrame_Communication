@@ -1,0 +1,15 @@
+//Code for inside iframe
+parent.postMessage("resize","http://www.suavenaturalinfusion.com");
+
+//Code for parent window
+var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+
+$(window).on(messageEvent, function (e) {
+	var data = e.originalEvent.data;
+	if (data === 'resize') {
+		$('#get-a-sample').addClass('after-sign-up')
+	}
+});
+
+
