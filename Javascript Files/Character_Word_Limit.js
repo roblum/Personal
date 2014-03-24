@@ -23,21 +23,45 @@ jQuery(function($){
 //<textarea id="entry"></textarea>
 //<p id="pp"></p>
 
+<script>
 //Word Count Script
 jQuery(function($){
-$('#entry').keyup(function() {
-    var textValue = $('#entry').val().toString().split(" ")
-        ,maxCount = 10
+$('<p id="pp">Words left: <span>400</span></p>').appendTo('#sfield_caption');
+
+$('#caption').keyup(function() {
+    var textValue = $('#caption').val().toString().split(" ")
+        ,maxCount = 400
         ,textBoxLength = textValue.length
         ,wordsLeft = parseInt(maxCount - textBoxLength);
-    $('#pp').text('Words left: ' + wordsLeft);
-    if (wordsLeft <= 0) {
-        return false;
-    }
+    $('#pp span').text(wordsLeft);
+    if (wordsLeft < 0) {
+        $('#pp').css('color','red');
+    }else{$('#pp').css('color','black');}
+    if (textValue[0] === ''){$('#pp span').text(maxCount);}
 });
-$("#entry").keypress(function(event) {
+$("#caption").keypress(function(event) {
     if(event.which == '13') {
       return false;
     }
 });
+
+$('#form_submit_button').click(function(){
+var wordsLeft = parseInt($('#pp span').html());
+console.log(wordsLeft);
+if (wordsLeft < 0){
+alert("Please check your word count");
+return false;
+}
+});
+
+});
+</script>
+
+//MOBILE 
+$('#form-submit-button').click(function(){
+var wordsLeft = $('#caption').val().toString().split(" ").length;
+if (wordsLeft > 400){
+alert("Please check your word count");
+return false;
+}
 });
