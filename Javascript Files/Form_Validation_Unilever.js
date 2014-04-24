@@ -175,7 +175,7 @@ if ('birthday' in v){
 			,validate : function(){
 						var birthdayValue = $(v.birthday).val().replace(/\D/g,'')
 							,bmonth = birthdayValue.slice(0,2)-1
-					        ,bdate = birthdayValue.slice(2,4)
+					        ,bdate = birthdayValue.slice(2,4)-1
 					        ,byear = birthdayValue.slice(4,8)
 					        ,convertDate = new Date(byear, bmonth, bdate)
 				        	,compareDate = convertDate.getTime()
