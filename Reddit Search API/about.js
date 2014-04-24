@@ -2,7 +2,7 @@ $(document).ready(function(){
     console.log('doc ready');
 
     $('#submit').click(function(){
-    	searchBox = $('#textBox').attr('value');
+    	searchBox = $('#textBox').val();
         var searchTerm = {
             q: searchBox,
 			jsonp: 'process'
