@@ -20,6 +20,19 @@ var sLink = $('#share-option-pinterest a').attr('href').indexOf('url=') + 4
 $('#share-option-pinterest a').attr('href', 'http://pinterest.com/pin/create/button/?url=' + aLink + '&media=' + img + '&description=I%20just%20entered%20to%20win%20a%20VIP%20trip%20to%20the%20VIZIO%20BCS%20National%20Championship.%20Vote%20for%20me%20in%20the%20%23VIZIOFanThrowdown!');
 }
 
+//Mobile Photo Contest
+//Change Twitter Share Copy
+if ($('#entry-twitter-share').length > 0 ){
+var bitLy = $('#share-url').attr('value');
+$('#entry-twitter-share').attr('href','http://twitter.com/share?text=I%E2%80%99m%20%E2%80%9Cringing%20in%E2%80%9D%20the%20summer%20with%20a%20little%20extra%20sparkle%20on%20my%20finger!%20Enter%20to%20win%20%242K%20from%20%40davidsbridal%20%26%20%40Helzberg!&url=' + bitLy);
+}
+
+//Change Email Share Copy
+if ($('#entry-email-share').length > 0 ){
+var bitLy = $('#share-url').attr('value').slice(14,20);
+$('#entry-email-share').attr('href', 'mailto:?body=This%20year%2C%20I%E2%80%99m%20%E2%80%9Cringing%20in%E2%80%9D%20the%20summer%20with%20a%20little%20extra%20sparkle%20on%20my%20finger!%20Check%20out%20my%20entry%20in%20the%20%E2%80%9CRing%20in%20the%20Summer%E2%80%9D%20Sweeps%20%26%20submit%20yours%20for%20a%20chance%20to%20win%20%242K%20from%20David%E2%80%99s%20Bridal%20%26%20Helzberg%20Diamonds!20http%3A//bit.ly/' + bitLy + '&subject=Enter%20to%20WIN%20%242K%20from%20David%E2%80%99s%20Bridal%20%26%20Helzberg%20Diamonds!');
+}
+
 
 //Referral Contest
 //Change Twitter Share Copy
