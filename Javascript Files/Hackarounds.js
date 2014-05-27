@@ -27,3 +27,6 @@ $(".CFile").contents().filter(function(){ return this.nodeType == 3; }).remove()
 				$(this).remove();
 			}
 		});
+
+//Overwrite photo contest isotope gallery
+gallery_options = {images_per_row: 3, images_per_fetch: 9};
