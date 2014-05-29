@@ -10,15 +10,17 @@ $(".CFile").contents().filter(function(){ return this.nodeType == 3; }).remove()
 
 	//=====================
 	//Youtube window resize
-	var windowWidth = $(window).width(),
-	youtubeHeight = windowWidth * 0.75;
-	$('#youtubeVideo').attr('height', youtubeHeight);
-
-	$(window).resize(function(){
+	var fixHeight = function(){
 		var windowWidth = $(window).width(),
 		youtubeHeight = windowWidth * 0.75;
 		$('#youtubeVideo').attr('height', youtubeHeight);
+	}
+
+	$(window).resize(function(){
+		fixHeight();
 	});
+
+	fixHeight();
 
 		//===============================================
 		//Get rid of default style sheet in offerpop apps
