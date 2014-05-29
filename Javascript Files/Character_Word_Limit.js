@@ -47,7 +47,7 @@ $("#caption").keypress(function(event) {
 
 $('#form_submit_button').click(function(){
 var wordsLeft = parseInt($('#pp span').html());
-console.log(wordsLeft);
+//console.log(wordsLeft);
 if (wordsLeft < 0){
 alert("Please check your word count");
 return false;
