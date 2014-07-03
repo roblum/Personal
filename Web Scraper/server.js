@@ -6,30 +6,30 @@ var app     = express();
 
 app.get('/scrape', function(req, res){
 	
-	url = 'http://www.imdb.com/title/tt1229340/';
+	url = 'http://www.amazon.com/Storm-QuickFire-Rapid-Tenkeyless-Mechanical/dp/B007VDKLLM/ref=sr_1_4?ie=UTF8&qid=1404393374&sr=8-4&keywords=quick+fire+rapid';
 
 	request(url, function(error, response, html){
 		if(!error){
+			//console.log(html);
 			var $ = cheerio.load(html);
 
-			var title, release, rating;
-			var json = { title : "", release : "", rating : ""};
+			var price, itemName;
+			var json = { price : "", itemName : ""};
 
-			$('.header').filter(function(){
+			$('meta[name=description]').filter(function(){
 		        var data = $(this);
-		        title = data.children().first().text();            
-                release = data.children().last().children().text();
-
-		        json.title = title;
-                json.release = release;
+		        console.log(data)
+		        itemName = data.attr('content');
+		        json.itemName = itemName;
 	        })
 
-            $('.star-box-giga-star').filter(function(){
-	        	var data = $(this);
-	        	rating = data.text();
-
-	        	json.rating = rating;
+			$('#actualPriceValue b.priceLarge').filter(function(){
+		        var data = $(this);
+		        console.log(data)
+		        price = data.text();
+		        json.price = price;
 	        })
+
 		}
         // To write to the system we will use the built in 'fs' library.
         // In this example we will pass 3 parameters to the writeFile function
@@ -39,15 +39,15 @@ app.get('/scrape', function(req, res){
 
         fs.writeFile('output.json', JSON.stringify(json, null, 4), function(err){
 
-        	console.log('File successfully written! - Check your project directory for the output.json file');
+        	console.log('File successfully written!');
 
         })
 
         // Finally, we'll just send out a message to the browser reminding you that this app does not have a UI.
-        res.send('Check your console! ')
+        res.send('Check your console!')
 	})
 })
 
 app.listen('8081')
-console.log('Magic happens on port 8081');
+console.log('Running on port 8081');
 exports = module.exports = app;
