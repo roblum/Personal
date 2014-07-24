@@ -64,7 +64,7 @@ var generalMethods = {
 					}
 				}
 }
-			
+
 //Validate Fields Objects
 //=====================================================
 if ('firstname' in v){
@@ -161,13 +161,20 @@ if ('birthday' in v){
 			,validate : function(){
 						var birthdayValue = $(v.birthday).val().replace(/\D/g,'')
 							,bmonth = birthdayValue.slice(0,2)-1
-					        ,bdate = birthdayValue.slice(2,4)-1
+					        ,bdate = birthdayValue.slice(2,4)
 					        ,byear = birthdayValue.slice(4,8)
 					        ,convertDate = new Date(byear, bmonth, bdate)
 				        	,compareDate = convertDate.getTime()
 							,dayInMilliseconds = 1000 * 60 * 60 * 24;
 
-						if(!birthdayValue || Date.now() - compareDate < dayInMilliseconds * 365.25 * 18 + dayInMilliseconds || birthdayValue.length !== 8 || parseInt(bmonth) < 1 || parseInt(bmonth) > 12 || parseInt(bdate) < 1 || parseInt(bdate) > 31 || parseInt(byear) < 1900) {
+						if(!birthdayValue ||
+							Date.now() - compareDate < dayInMilliseconds * 365.25 * 18 ||
+							birthdayValue.length !== 8 ||
+							parseInt(bmonth) < 0 ||
+							parseInt(bmonth) > 12 ||
+							parseInt(bdate) < 1 ||
+							parseInt(bdate) > 31 ||
+							parseInt(byear) < 1900) {
 						    $(v.birthday).addClass('Invalid');
 						    $('#s-birthday').html(birthdayObject.labelName + ' (18+)');
 						} else{
